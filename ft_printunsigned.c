@@ -6,19 +6,18 @@
 /*   By: fmachuca <fmachuca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:15:48 by fmachuca          #+#    #+#             */
-/*   Updated: 2024/03/25 16:15:49 by fmachuca         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:54:22 by fmachuca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_printf.h"
+#include "ft_printf.h"
+#include <stdio.h>
 
-static int	ft_numlen(int n)
+static int	ft_numlen(unsigned int n)
 {
 	int	i;
 
 	i = 0;
-	if (n == 0)
-		return (1);
 	while (n != 0)
 	{
 		n = n / 10;
@@ -29,21 +28,21 @@ static int	ft_numlen(int n)
 
 char	*ft_uitoa(unsigned int n)
 {
-	int		len;
-	char	*num;
+	size_t	len;
+	char	*str;
 
 	len = ft_numlen(n);
-	num = malloc(sizeof(char *) * (len + 1));
-	if (!num)
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
 		return (NULL);
-	num[len] = '\0';
+	str[len] = '\0';
 	while (n != 0)
 	{
-		num[len - 1] = n % 10;
+		str[len - 1] = n % 10 + 48;
 		n = n / 10;
 		len--;
 	}
-	return (num);
+	return (str);
 }
 
 int	ft_printunsigned(unsigned int n)
@@ -53,13 +52,9 @@ int	ft_printunsigned(unsigned int n)
 
 	print_len = 0;
 	if (n == 0)
-		print_len = print_len + write (1, "0", 1);
-	else
-	{
-		num = ft_uitoa(n);
-		print_len = print_len + ft_printstr(num);
-		free (num);
-	}
-	
+		return (ft_printchar('0'));
+	num = ft_uitoa(n);
+	print_len = print_len + ft_printstr(num);
+	free (num);
 	return (print_len);
 }

@@ -6,11 +6,11 @@
 /*   By: fmachuca <fmachuca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:15:39 by fmachuca          #+#    #+#             */
-/*   Updated: 2024/03/25 16:15:40 by fmachuca         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:52:31 by fmachuca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_printf.h"
+#include "ft_printf.h"
 
 static void	ft_putchar_fd(const char c, int fd)
 {
@@ -30,7 +30,7 @@ static int	ft_ptrlen(uintptr_t num)
 	return (len);
 }
 
-static void ft_putptr(uintptr_t num)
+static void	ft_putptr(uintptr_t num)
 {
 	if (num >= 16)
 	{
@@ -48,9 +48,14 @@ static void ft_putptr(uintptr_t num)
 
 int	ft_printptr(const void *ptr)
 {
-	uintptr_t addr;
-	int	print_len;
+	uintptr_t	addr;
+	int			print_len;
 
+	if (!ptr)
+	{
+		ft_printstr("(nil)");
+		return (5);
+	}
 	addr = (uintptr_t)ptr;
 	print_len = 0;
 	print_len = print_len + write (1, "0x", 2);

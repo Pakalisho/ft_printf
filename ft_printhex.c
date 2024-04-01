@@ -6,28 +6,18 @@
 /*   By: fmachuca <fmachuca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:15:25 by fmachuca          #+#    #+#             */
-/*   Updated: 2024/03/25 16:15:26 by fmachuca         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:55:11 by fmachuca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_printf.h"
+#include "ft_printf.h"
 
-int	ft_strlen(const char *str)
+static void	ft_putchar_fd(char c, int fd)
 {
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
+	write (fd, &c, 1);
 }
 
-void ft_putchar_fd(char c, int fd)
-{
-	write (fd, &c, ft_strlen(&c));
-}
-
-static int ft_hexlen(int n)
+static int	ft_hexlen(unsigned int n)
 {
 	int	i;
 
@@ -42,12 +32,7 @@ static int ft_hexlen(int n)
 
 static void	ft_puthex(unsigned int n, const char format)
 {
-	if (n >= 16)
-	{
-		ft_puthex(n /16, format);
-		ft_puthex(n % 16, format);
-	}
-	else
+	if (n < 16)
 	{
 		if (n <= 9)
 			ft_putchar_fd((n + '0'), 1);
@@ -56,8 +41,13 @@ static void	ft_puthex(unsigned int n, const char format)
 			if (format == 'x')
 				ft_putchar_fd((n - 10 + 'a'), 1);
 			if (format == 'X')
-				ft_putchar_fd((n -10 + 'A'), 1);
+				ft_putchar_fd((n - 10 + 'A'), 1);
 		}
+	}
+	else
+	{
+		ft_puthex(n / 16, format);
+		ft_puthex(n % 16, format);
 	}
 }
 
@@ -65,20 +55,39 @@ int	ft_printhex(unsigned int n, const char format)
 {
 	if (n == 0)
 		return (write (1, "0", 1));
-	else
-		ft_puthex(n, format);
+	ft_puthex(n, format);
 	return (ft_hexlen(n));
 }
 
-/* int main ()
+int main(void)
 {
-	int a = 15;
-	char format1 = 'x';
-	char format2 = 'X';
+	int a = 0;
+	int b = 1;
+	int c = 2;
+	int d = 3;
+	int e = 4;
+	int f = 5;
+	ft_printhex(a, 'x');
+	printf("\n%x\n", b);
+	ft_printhex(c, 'X');
+	printf("\n%X\n", d);
+	ft_printhex(e, 'X');
+	write (1, "\n", 1);
+	printf("%X", f);
+	write (1, "\n", 1);
 
-	ft_printhex(a, format1);
+	int x0 = ft_printhex(-1, 'x');
 	write (1, "\n", 1);
-	ft_printhex(a, format2);
+	int x1 = printf("%x", -1);
 	write (1, "\n", 1);
-	return (0);
-} */
+	int x2 = ft_printhex(-1, 'X');
+	write (1, "\n", 1);
+	int x3 = printf("%X", -1);
+	write (1, "\n", 1);
+
+	write (1, "\n", 1);
+	printf("%i\n", x0);
+	printf("%i\n", x1);
+	printf("%i\n", x2);
+	printf("%i\n", x3);
+}

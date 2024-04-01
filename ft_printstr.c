@@ -6,18 +6,17 @@
 /*   By: fmachuca <fmachuca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:15:43 by fmachuca          #+#    #+#             */
-/*   Updated: 2024/03/25 16:15:44 by fmachuca         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:30:48 by fmachuca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_printf.h"
+#include "ft_printf.h"
 
 static void	ft_putstr(char *str)
 {
 	int	i;
 
 	i = 0;
-
 	while (str[i])
 	{
 		write (1, &str[i], 1);
@@ -25,21 +24,19 @@ static void	ft_putstr(char *str)
 	}
 }
 
-int ft_printstr(char *str)
+int	ft_printstr(char *str)
 {
-	int i;
+	int	i;
 
-	i = 0;
-	if (str[i] == '\0')
+	if (!str)
 	{
 		ft_putstr("(null)");
 		return (6);
 	}
-	while (str[i])
-	{
-		write (1, &str[i], 1);
+	i = 0;
+	while (str[i] != '\0')
 		i++;
-	}
+	write (1, str, i);
 	return (i);
 }
 

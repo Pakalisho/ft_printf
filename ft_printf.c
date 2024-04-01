@@ -6,18 +6,17 @@
 /*   By: fmachuca <fmachuca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:15:18 by fmachuca          #+#    #+#             */
-/*   Updated: 2024/03/25 16:15:20 by fmachuca         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:14:21 by fmachuca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_printf.h"
+#include "ft_printf.h"
 
 static int	ft_format(va_list args, const char format)
 {
 	int	print_len;
 
 	print_len = 0;
-
 	if (format == 'c')
 		print_len = print_len + ft_printchar(va_arg(args, int));
 	else if (format == 's')
@@ -38,15 +37,17 @@ static int	ft_format(va_list args, const char format)
 int	ft_printf(const char *str, ...)
 {
 	int		i;
-	va_list args;
+	va_list	args;
 	int		print_len;
 
 	i = 0;
 	print_len = 0;
 	va_start(args, str);
+	if (str == NULL)
+		return (-1);
 	while (str[i])
 	{
-		if (str[i] == '%')
+		if (str[i] == '%' && str[i + 1] != '\0')
 		{
 			print_len = print_len + ft_format(args, str[i + 1]);
 			i++;

@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fmachuca <fmachuca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/25 16:15:59 by fmachuca          #+#    #+#             */
-/*   Updated: 2024/03/25 16:16:01 by fmachuca         ###   ########.fr       */
+/*   Created: 2024/03/25 16:28:19 by fmachuca          #+#    #+#             */
+/*   Updated: 2024/03/25 16:31:46 by fmachuca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <unistd.h>
+# include <stdarg.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <unistd.h>
 
 int		ft_printchar(int c);
 int		ft_printf(const char *str, ...);
